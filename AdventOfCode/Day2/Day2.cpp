@@ -1,5 +1,6 @@
 #include "Day2.h"
 #include "string"
+#include <algorithm>    // std::sort
 #include <sstream>
 
 int Day2::Main() {
@@ -20,20 +21,32 @@ int Day2::Main() {
 		"514 218 209 185 197 137 393 555 588 569 710 537 48 309 519 138 "
 		"1567 3246 4194 151 3112 903 1575 134 150 4184 3718 4077 180 4307 4097 1705 ";
 
-	std::vector<std::vector<int>> numbers = readInput(input);
+	const int NUMBER_ROWS = 16;
+	const int NUMBER_COLUMNS = 16;
+	std::vector<std::vector<int>> numbers = ReadInput(input, NUMBER_ROWS, NUMBER_COLUMNS);
+	std::cout << "Your Input is: " << std::endl;
+	PrintArray(numbers);
 
-	printArray(numbers);
+	//Part 1
+	int checkSum = 0;
+	for (int i = 0; i < numbers.size(); i++) {
+		checkSum += ChecksumRow(numbers, i);
+	}
+	std::cout << "\n\nPart 1. CheckSum is: " << checkSum;
+
+	//Part 2
+	int evenlyDivisorsSum = 0;
+	for (int i = 0; i < numbers.size(); i++) {
+		evenlyDivisorsSum += DivideEvenlyRow(numbers, i);
+	}
+	std::cout << "\n\nPart 2. Sum of evenly divisors is: " << evenlyDivisorsSum << std::endl;
 
 	return 0;
 }
 
 
-std::vector<std::vector<int>> Day2::readInput(std::string input) {
-	const int NUMBER_ROWS = 16;
-	const int NUMBER_COLUMNS = 16;
-
-	//int matrix[NUMBER_ROWS][NUMBER_COLUMNS];
-	std::vector<std::vector<int>> matrix(NUMBER_ROWS, std::vector<int>(NUMBER_COLUMNS));
+std::vector<std::vector<int>> Day2::ReadInput(std::string input, const int rowNumber, const int columnNumber) {
+	std::vector<std::vector<int>> matrix(rowNumber, std::vector<int>(columnNumber));
 	std::string nextToken = "";
 	int currentRow = 0;
 	int currentColumn = 0;
@@ -46,17 +59,16 @@ std::vector<std::vector<int>> Day2::readInput(std::string input) {
 			nextToken = "";
 
 			currentColumn++;
-			if (currentColumn >= NUMBER_COLUMNS) {
+			if (currentColumn >= columnNumber) {
 				currentColumn = 0;
 				currentRow++;
 			}
-
 		}
 	}
 	return matrix;
 }
 
-void Day2::printArray(std::vector<std::vector<int>> vector) {
+void Day2::PrintArray(std::vector<std::vector<int>> vector) {
 	for (int i = 0; i < vector.size(); i++)
 	{
 		for (int j = 0; j < vector[0].size(); j++)
@@ -66,3 +78,37 @@ void Day2::printArray(std::vector<std::vector<int>> vector) {
 		std::cout << std::endl;
 	}
 }
+
+int Day2::ChecksumRow(std::vector<std::vector<int>> vector, int row) {
+	int min = vector[row][0];
+	int max = vector[row][0];
+
+	for (int i = 0; i < vector[row].size(); i++) {
+		int currentValue = vector[row][i];
+		if (currentValue < min) {
+			min = currentValue;
+		}
+		if (currentValue > max) {
+			max = currentValue;
+		}
+	}
+	return max - min;
+}
+
+int Day2::DivideEvenlyRow(std::vector<std::vector<int>> vector, int row) {
+	//First sort the vector
+	std::sort(vector[row].begin(), vector[row].end());
+
+	int division = 0;
+	bool found = false;
+	for (int i = 0; !found && i < vector[row].size(); i++) { //the last one is the greater, cant divide any number
+		for (int j = i + 1; !found && j < vector[row].size(); j++) {
+			if (vector[row][j] % vector[row][i] == 0) {
+				division = vector[row][j] / vector[row][i];
+				found = true;
+			}
+		}
+	}
+	return division;
+}
+
