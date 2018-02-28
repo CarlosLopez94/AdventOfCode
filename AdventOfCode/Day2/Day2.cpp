@@ -21,22 +21,22 @@ int Day2::Main() {
 		"514 218 209 185 197 137 393 555 588 569 710 537 48 309 519 138 "
 		"1567 3246 4194 151 3112 903 1575 134 150 4184 3718 4077 180 4307 4097 1705 ";
 
-	const int NUMBER_ROWS = 16;
-	const int NUMBER_COLUMNS = 16;
+	const unsigned NUMBER_ROWS = 16;
+	const unsigned NUMBER_COLUMNS = 16;
 	std::vector<std::vector<int>> numbers = ReadInput(input, NUMBER_ROWS, NUMBER_COLUMNS);
 	std::cout << "Day2!! Your Input is: " << std::endl;
 	PrintVector(numbers);
 
 	//Part 1
 	int checkSum = 0;
-	for (int i = 0; i < numbers.size(); i++) {
+	for (unsigned i = 0; i < numbers.size(); i++) {
 		checkSum += ChecksumRow(numbers, i);
 	}
 	std::cout << "\n\nPart 1. CheckSum is: " << checkSum;
 
 	//Part 2
 	int evenlyDivisorsSum = 0;
-	for (int i = 0; i < numbers.size(); i++) {
+	for (unsigned i = 0; i < numbers.size(); i++) {
 		evenlyDivisorsSum += DivideEvenlyRow(numbers, i);
 	}
 	std::cout << "\n\nPart 2. Sum of evenly divisors is: " << evenlyDivisorsSum << std::endl;
@@ -50,7 +50,7 @@ std::vector<std::vector<int>> Day2::ReadInput(std::string input, const int rowNu
 	std::string nextToken = "";
 	int currentRow = 0;
 	int currentColumn = 0;
-	for (int i = 0; i < input.length(); i++) {
+	for (unsigned i = 0; i < input.length(); i++) {
 		if (input[i] != ' ') {
 			nextToken += input[i];
 		} else if (nextToken != "") {
@@ -69,9 +69,9 @@ std::vector<std::vector<int>> Day2::ReadInput(std::string input, const int rowNu
 }
 
 void Day2::PrintVector(std::vector<std::vector<int>> vector) {
-	for (int i = 0; i < vector.size(); i++)
+	for (unsigned i = 0; i < vector.size(); i++)
 	{
-		for (int j = 0; j < vector[0].size(); j++)
+		for (unsigned j = 0; j < vector[0].size(); j++)
 		{
 			std::cout << vector[i][j] << '\t';
 		}
@@ -83,7 +83,7 @@ int Day2::ChecksumRow(std::vector<std::vector<int>> vector, int row) {
 	int min = vector[row][0];
 	int max = vector[row][0];
 
-	for (int i = 0; i < vector[row].size(); i++) {
+	for (unsigned i = 0; i < vector[row].size(); i++) {
 		int currentValue = vector[row][i];
 		if (currentValue < min) {
 			min = currentValue;
@@ -101,8 +101,8 @@ int Day2::DivideEvenlyRow(std::vector<std::vector<int>> vector, int row) {
 
 	int division = 0;
 	bool found = false;
-	for (int i = 0; !found && i < vector[row].size(); i++) { //the last one is the greater, cant divide any number
-		for (int j = i + 1; !found && j < vector[row].size(); j++) {
+	for (unsigned i = 0; !found && i < vector[row].size(); i++) { //the last one is the greater, cant divide any number
+		for (unsigned j = i + 1; !found && j < vector[row].size(); j++) {
 			if (vector[row][j] % vector[row][i] == 0) {
 				division = vector[row][j] / vector[row][i];
 				found = true;

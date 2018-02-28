@@ -53,8 +53,8 @@ int Day3::CalculateVectorDimension(int number) {
 }
 
 void Day3::PrintVector(std::vector<std::vector<int>> vector) {
-	for (int i = 0; i < vector.size(); i++) {
-		for (int j = 0; j < vector[0].size(); j++)
+	for (unsigned i = 0; i < vector.size(); i++) {
+		for (unsigned j = 0; j < vector[0].size(); j++)
 		{
 			std::cout << vector[i][j] << '\t';
 		}
@@ -190,8 +190,8 @@ void Day3::CreateSpiralPart2(std::vector<std::vector<int>>& vector, int input, i
 
 int Day3::SumOfAdyacents(std::vector<std::vector<int>> vector, int row, int column) {
 	int sumAdyacents = 0;
-	for (int i = row - 1; i <= row + 1; i++) {
-		for (int j = column - 1; j <= column + 1; j++) {
+	for (unsigned i = row - 1; i <= row + 1; i++) {
+		for (unsigned j = column - 1; j <= column + 1; j++) {
 			if (i >= 0 && i < vector.size() && j >= 0 && j < vector[0].size()) {
 				sumAdyacents += vector[i][j];
 			}

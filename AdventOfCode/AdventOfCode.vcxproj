@@ -118,12 +118,14 @@
     <ClCompile Include="Day1\Day1.cpp" />
     <ClCompile Include="Day2\Day2.cpp" />
     <ClCompile Include="Day3\Day3.cpp" />
+    <ClCompile Include="Day4\Day4.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Day1\Day1.h" />
     <ClInclude Include="Day2\Day2.h" />
     <ClInclude Include="Day3\Day3.h" />
+    <ClInclude Include="Day4\Day4.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
