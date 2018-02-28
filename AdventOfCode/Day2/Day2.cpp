@@ -24,8 +24,8 @@ int Day2::Main() {
 	const int NUMBER_ROWS = 16;
 	const int NUMBER_COLUMNS = 16;
 	std::vector<std::vector<int>> numbers = ReadInput(input, NUMBER_ROWS, NUMBER_COLUMNS);
-	std::cout << "Your Input is: " << std::endl;
-	PrintArray(numbers);
+	std::cout << "Day2!! Your Input is: " << std::endl;
+	PrintVector(numbers);
 
 	//Part 1
 	int checkSum = 0;
@@ -68,12 +68,12 @@ std::vector<std::vector<int>> Day2::ReadInput(std::string input, const int rowNu
 	return matrix;
 }
 
-void Day2::PrintArray(std::vector<std::vector<int>> vector) {
+void Day2::PrintVector(std::vector<std::vector<int>> vector) {
 	for (int i = 0; i < vector.size(); i++)
 	{
 		for (int j = 0; j < vector[0].size(); j++)
 		{
-			std::cout << vector[i][j] << ' ';
+			std::cout << vector[i][j] << '\t';
 		}
 		std::cout << std::endl;
 	}

@@ -5,14 +5,6 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventOfCode", "AdventOfCode\AdventOfCode.vcxproj", "{617EF624-F9E9-410D-A796-DB6B463C14DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day1", "Day1", "{C51222FC-A87C-4A4B-908C-0D2822FFDD29}"
-	ProjectSection(SolutionItems) = preProject
-		AdventOfCode\Day1.cpp = AdventOfCode\Day1.cpp
-		AdventOfCode\Day1.h = AdventOfCode\Day1.h
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day2", "Day2", "{5B7B34E4-CFD2-4258-A8A1-4FD30A45FE2F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
