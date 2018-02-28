@@ -21,8 +21,8 @@ int Day3::Main() {
 	//PrintVector(vector);
 
 	//Calculate Manhattan
-	int center = vector.size() / 2;
-	int manhattan = ManhattanDistance(center, center,valueRow, valueColumn);
+	int center = (int)vector.size() / 2;
+	int manhattan = ManhattanDistance(center, center, valueRow, valueColumn);
 	std::cout << "Manhattan: " << manhattan << "\n";
 
 	std::cout << "Day 3 - Part 2. Your input stills " << input << std::endl;
@@ -31,11 +31,11 @@ int Day3::Main() {
 
 	std::vector<std::vector<int>> vectorPart2(dimension, std::vector<int>(dimension, 0));
 	int greaterValue;
-	CreateSpiralPart2(vectorPart2,input, greaterValue);
+	CreateSpiralPart2(vectorPart2, input, greaterValue);
 
 	//PrintVector(vectorPart2);
 
-	std::cout << "First greater Value: " << greaterValue<< "\n";
+	std::cout << "First greater Value: " << greaterValue << "\n";
 
 	return 0;
 }
@@ -68,7 +68,7 @@ int Day3::ManhattanDistance(int rowOrigen, int columOrigin, int rowDestiny, int 
 
 //Creates the Spiral until all the cells are different from 0. The values are 1 by 1
 void Day3::CreateSpiralPart1(std::vector<std::vector<int>>& vector) {
-	int center = vector.size() / 2;
+	int center = (int)vector.size() / 2;
 	vector[center][center] = 1;
 
 	int nextNumber = 2;
@@ -135,7 +135,7 @@ void Day3::FindCellWithValue(std::vector<std::vector<int>> vector, int value, in
 
 //Creates the Spiral until all the cells are different from 0. The values are 1 by 1
 void Day3::CreateSpiralPart2(std::vector<std::vector<int>>& vector, int input, int& greaterResult) {
-	int center = vector.size() / 2;
+	int center = (int)vector.size() / 2;
 	vector[center][center] = 1;
 
 	int currentRow = center;
@@ -176,7 +176,7 @@ void Day3::CreateSpiralPart2(std::vector<std::vector<int>>& vector, int input, i
 		} else {
 			int newValue = SumOfAdyacents(vector, currentRow, currentColumn);
 			vector[currentRow][currentColumn] = newValue;
-			if (newValue>input) {
+			if (newValue > input) {
 				greaterResult = newValue;
 				completed = true;
 			}
@@ -190,8 +190,8 @@ void Day3::CreateSpiralPart2(std::vector<std::vector<int>>& vector, int input, i
 
 int Day3::SumOfAdyacents(std::vector<std::vector<int>> vector, int row, int column) {
 	int sumAdyacents = 0;
-	for (unsigned i = row - 1; i <= row + 1; i++) {
-		for (unsigned j = column - 1; j <= column + 1; j++) {
+	for (int i = row - 1; i <= row + 1; i++) {
+		for (int j = column - 1; j <= column + 1; j++) {
 			if (i >= 0 && i < vector.size() && j >= 0 && j < vector[0].size()) {
 				sumAdyacents += vector[i][j];
 			}

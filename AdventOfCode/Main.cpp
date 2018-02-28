@@ -1,13 +1,14 @@
 #include "Day1\Day1.h"
 #include "Day2\Day2.h"
 #include "Day3\Day3.h"
-#include "Day4\Day4.h"	
+#include "Day4\Day4.h"
+#include "Day5\Day5.h"
 #include "iostream"
 
 int main() {
 	//in the future this will be an input
 	//int year = 2017;
-	int day = 4;
+	int day = 5;
 	int resultErrorNumber = 1;
 	switch (day) {
 	case 1:
@@ -25,6 +26,10 @@ int main() {
 	case 4:
 		Day4 day4;
 		resultErrorNumber = day4.Main();
+		break;
+	case 5:
+		Day5 day5;
+		resultErrorNumber = day5.Main();
 		break;
 	default:
 		std::cout << "Oh ooh this day is not finish yet!";
