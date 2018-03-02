@@ -31,6 +31,9 @@
     <ClCompile Include="Day6\Day6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Day7\Day7.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Day1\Day1.h">
@@ -51,7 +54,12 @@
     <ClInclude Include="Day5\Day5.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="Day6\Day6.h" />
+    <ClInclude Include="Day6\Day6.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Day7\Day7.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AdventOfCode.rc" />
