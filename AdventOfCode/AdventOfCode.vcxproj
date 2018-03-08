@@ -118,6 +118,7 @@
     <ClCompile Include="Day10\Day10.cpp" />
     <ClCompile Include="Day11\Day11.cpp" />
     <ClCompile Include="Day12\Day12.cpp" />
+    <ClCompile Include="Day13\Day13.cpp" />
     <ClCompile Include="Day1\Day1.cpp" />
     <ClCompile Include="Day2\Day2.cpp" />
     <ClCompile Include="Day3\Day3.cpp" />
@@ -128,11 +129,13 @@
     <ClCompile Include="Day8\Day8.cpp" />
     <ClCompile Include="Day9\Day9.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Day10\Day10.h" />
     <ClInclude Include="Day11\Day11.h" />
     <ClInclude Include="Day12\Day12.h" />
+    <ClInclude Include="Day13\Day13.h" />
     <ClInclude Include="Day1\Day1.h" />
     <ClInclude Include="Day2\Day2.h" />
     <ClInclude Include="Day3\Day3.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="Day8\Day8.h" />
     <ClInclude Include="Day9\Day9.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AdventOfCode.rc" />
