@@ -17,7 +17,9 @@
 int main() {
 	//in the future this will be an input
 	//int year = 2017;
-	int day = 13;
+	std::cout << "Select day: " << std::endl;
+
+	int day = 7;
 	int resultErrorNumber = 1;
 	switch (day) {
 	case 1:
@@ -78,7 +80,7 @@ int main() {
 	}
 
 	//Stop execution
-	std::cout << "\nPress \"Enter\" to stop execution...\n";
+	std::cout << std::endl << "\nPress \"Enter\" to stop execution...\n";
 	std::cin.ignore();
 	return resultErrorNumber;
 }

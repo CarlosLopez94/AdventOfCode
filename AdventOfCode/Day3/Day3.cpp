@@ -1,13 +1,13 @@
 #include "Day3.h"
+#include "../Util.h"
 #include "iostream"
 #include "stdlib.h"
 
 int Day3::Main() {
-	const int input = 277678;
+	int input = stoi(Util::ReadFileSingleLine("../AdventOfCode/Day3/input.txt")); 277678;
 	std::cout << "Day 3 - Part 1. Your input is " << input << std::endl;
 
 	int dimension = CalculateVectorDimension(input);
-	std::cout << "dimension: " << dimension << "\n";
 
 	std::vector<std::vector<int>> vector(dimension, std::vector<int>(dimension, 0));
 
@@ -18,23 +18,22 @@ int Day3::Main() {
 	int valueRow, valueColumn;
 	FindCellWithValue(vector, input, valueRow, valueColumn);
 
-	//PrintVector(vector);
+	//Util::PrintMatrix(vector);
 
 	//Calculate Manhattan
 	int center = (int)vector.size() / 2;
-	int manhattan = ManhattanDistance(center, center, valueRow, valueColumn);
-	std::cout << "Manhattan: " << manhattan << "\n";
+	int manhattan = Util::ManhattanDistance(center, center, valueRow, valueColumn);
+	std::cout << "Steps to carry '" << input << "' to the center: " << manhattan<< std::endl;
 
-	std::cout << "Day 3 - Part 2. Your input stills " << input << std::endl;
+	//Part 2
+	std::cout << "Part 2. Your input stills " << input << std::endl;
 	dimension = CalculateVectorDimension(input);
-	std::cout << "dimension: " << dimension << "\n";
 
 	std::vector<std::vector<int>> vectorPart2(dimension, std::vector<int>(dimension, 0));
 	int greaterValue;
 	CreateSpiralPart2(vectorPart2, input, greaterValue);
 
-	//PrintVector(vectorPart2);
-
+	//Util::PrintMatrix(vectorPart2);
 	std::cout << "First greater Value: " << greaterValue << "\n";
 
 	return 0;
@@ -50,20 +49,6 @@ int Day3::CalculateVectorDimension(int number) {
 	}
 	i--; //its add once more time when the condition is fulfill
 	return i * 2 + 1;
-}
-
-void Day3::PrintVector(std::vector<std::vector<int>> vector) {
-	for (unsigned i = 0; i < vector.size(); i++) {
-		for (unsigned j = 0; j < vector[0].size(); j++)
-		{
-			std::cout << vector[i][j] << '\t';
-		}
-		std::cout << std::endl;
-	}
-}
-
-int Day3::ManhattanDistance(int rowOrigen, int columOrigin, int rowDestiny, int columnDestiny) {
-	return abs(rowDestiny - rowOrigen) + abs(columnDestiny - columOrigin);
 }
 
 //Creates the Spiral until all the cells are different from 0. The values are 1 by 1

@@ -1,4 +1,5 @@
 #include "Day6.h"
+#include "../Util.h"
 #include "sstream"  //for std::istringstream
 #include "iterator" //for std::istream_iterator
 #include "iostream"
@@ -8,10 +9,10 @@
 
 int Day6::Main() {
 	std::cout << "Day 6!" << std::endl;
-	std::vector<int> currentState = StringToIntVector(ReadFile("../AdventOfCode/Day6/input.txt"));
+	std::vector<int> currentState = StringToIntVector(Util::ReadFile("../AdventOfCode/Day6/input.txt"));
 
-	//currentState = { 0, 2, 7, 0 };//Testing!!
-	PrintVector(currentState, 2);
+	//currentState = { 0, 2, 7, 0 };
+	Util::PrintVector(currentState, 2);
 
 	//Part 1
 	int steps = 0;
@@ -28,7 +29,7 @@ int Day6::Main() {
 		}
 
 		if (steps % 100 == 0) { //prints every 100 states
-			PrintVector(currentState, indexOfGreater);
+			Util::PrintVector(currentState, indexOfGreater);
 		}
 	}
 	std::cout << "Part 1. Number of steps to find the loop: " << steps << std::endl;
@@ -38,21 +39,6 @@ int Day6::Main() {
 	std::cout << "Part 2. The loop has a size of: " << loopSize << std::endl;
 
 	return 0;
-}
-
-std::vector<std::string> Day6::ReadFile(std::string fileName) {
-	std::vector<std::string> lines;
-	std::string line;
-	std::ifstream myfile(fileName);
-	if (myfile.is_open()) {
-		while (getline(myfile, line)) {
-			lines.push_back(line);
-		}
-		myfile.close();
-	} else {
-		std::cout << "Unable to open file\n";
-	}
-	return lines;
 }
 
 std::vector<int> Day6::StringToIntVector(std::vector<std::string> stringVector) {
@@ -69,17 +55,6 @@ std::vector<int> Day6::StringToIntVector(std::vector<std::string> stringVector) 
 		}
 	}
 	return numbers;
-}
-
-void Day6::PrintVector(std::vector<int> vector, int currentPos) {
-	for (unsigned i = 0; i < vector.size(); i++) {
-		if (i == currentPos) {
-			std::cout << '(' << vector[i] << ") ";
-		} else {
-			std::cout << ' ' << vector[i] << "  ";
-		}
-	}
-	std::cout << std::endl;
 }
 
 int Day6::FindIndexOfGreater(std::vector<int> vector) {

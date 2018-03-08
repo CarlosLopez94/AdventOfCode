@@ -1,4 +1,5 @@
 #include "Day8.h"
+#include "../Util.h"
 #include "iostream"
 #include "fstream"
 #include "string"
@@ -8,7 +9,7 @@ int Day8::Main() {
 	std::cout << "Day 8 - Part 1" << std::endl;
 	std::map<std::string, int> registers;
 
-	std::vector<std::string> input = ReadFile("../AdventOfCode/Day8/input.txt");
+	std::vector<std::string> input = Util::ReadFile("../AdventOfCode/Day8/input.txt");
 
 	//Init registers with 0
 	for (std::string line : input) {
@@ -35,39 +36,8 @@ int Day8::Main() {
 	return 0;
 }
 
-std::vector<std::string> Day8::ReadFile(std::string fileName) {
-	std::vector<std::string> lines;
-	std::string line;
-	std::ifstream myfile(fileName);
-	if (myfile.is_open()) {
-		while (getline(myfile, line)) {
-			lines.push_back(line);
-		}
-		myfile.close();
-	} else {
-		std::cout << "Unable to open file\n";
-	}
-	return lines;
-}
-
-std::vector<std::string> Day8::Split(std::string stringToSplit, std::string separator) {
-	std::vector<std::string> tokens;
-	std::string stringAux = stringToSplit;
-	int indexNextToken = 0;
-	while (indexNextToken > -1 && indexNextToken < stringToSplit.size()) {
-		indexNextToken = stringAux.find(separator);
-		if (indexNextToken != -1) {
-			tokens.push_back(stringAux.substr(0, indexNextToken));
-			stringAux = stringAux.substr(indexNextToken + separator.size(), stringToSplit.size());//we have to jump the separator
-		} else {
-			tokens.push_back(stringAux);
-		}
-	}
-	return tokens;
-}
-
 int Day8::ReadInstruction(std::map<std::string, int>& registers, std::string instruction) {
-	std::vector<std::string> tokens = Split(instruction, " ");
+	std::vector<std::string> tokens = Util::Split(instruction, " ");
 
 	//Get the condition
 	std::string condition = "";
@@ -98,7 +68,7 @@ int Day8::ReadInstruction(std::map<std::string, int>& registers, std::string ins
 
 bool Day8::CheckCondition(std::map<std::string, int> registers, std::string condition) {
 	bool isTrue = false;
-	std::vector<std::string> tokens = Split(condition, " ");
+	std::vector<std::string> tokens = Util::Split(condition, " ");
 	std::string regToCheck = tokens[0];
 	std::string operation = tokens[1];
 	int numberToCheck = stoi(tokens[2]);

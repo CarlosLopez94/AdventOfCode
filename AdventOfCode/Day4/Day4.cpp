@@ -1,4 +1,5 @@
 #include "Day4.h"
+#include "../Util.h"
 #include "iostream"
 #include "fstream"
 #include "string"
@@ -6,14 +7,14 @@
 #include "algorithm"
 
 int Day4::Main() {
-	std::vector<std::string> vector = ReadFile("../AdventOfCode/Day4/input.txt");
+	std::vector<std::string> input = Util::ReadFile("../AdventOfCode/Day4/input.txt");
 
-	//Part1
+	//Part 1
 	std::cout << "Day 4 - Part1" << std::endl;
 	unsigned validCount = 0;
-	for (unsigned i = 0; i < vector.size(); i++) {
+	for (unsigned i = 0; i < input.size(); i++) {
 		//std::cout << vector[i];
-		if (IsPassphraseValidPart1(vector[i])) {
+		if (IsPassphraseValidPart1(input[i])) {
 			//std::cout << "\t--> VALID" << std::endl;
 			validCount++;
 		} else {
@@ -22,12 +23,12 @@ int Day4::Main() {
 	}
 	std::cout << "There are " << validCount << " valid passphrases!" << std::endl;
 
-	//Part1
+	//Part 2
 	std::cout << "Day 4 - Part2" << std::endl;
 	validCount = 0;
-	for (unsigned i = 0; i < vector.size(); i++) {
+	for (unsigned i = 0; i < input.size(); i++) {
 		//std::cout << vector[i];
-		if (IsPassphraseValidPart2(vector[i])) {
+		if (IsPassphraseValidPart2(input[i])) {
 			//std::cout << "\t--> VALID" << std::endl;
 			validCount++;
 		} else {
@@ -38,26 +39,6 @@ int Day4::Main() {
 
 
 	return 0;
-}
-
-std::vector<std::string> Day4::ReadFile(std::string fileName) {
-	std::vector<std::string> vector;
-	std::string line;
-	std::ifstream myfile(fileName);
-	if (myfile.is_open())
-	{
-		while (getline(myfile, line))
-		{
-			std::string tokenLine = line;
-			//std::cout << line << '\n';
-			vector.push_back(tokenLine);
-		}
-		myfile.close();
-	} else {
-		std::cout << "Unable to open file\n";
-	}
-
-	return vector;
 }
 
 bool Day4::IsPassphraseValidPart1(std::string passphraseToCheck) {

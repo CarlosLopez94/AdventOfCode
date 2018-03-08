@@ -9,8 +9,7 @@ public:
 	int Main();
 
 private:
-	std::vector<std::vector<int>>ReadInput(std::string input, const int rowNumber, const int columnNumber);
-	void PrintVector(std::vector<std::vector<int>> vector);
+	std::vector<std::vector<int>>ReadAsMatrix(std::string input, const int rowNumber, const int columnNumber);
 	int ChecksumRow(std::vector<std::vector<int>> vector, int row);
 	int DivideEvenlyRow(std::vector<std::vector<int>> vector, int row);
 };

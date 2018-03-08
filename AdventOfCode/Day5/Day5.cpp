@@ -1,4 +1,5 @@
 #include "Day5.h"
+#include "../Util.h"
 #include "iostream"
 #include "fstream"
 #include "vector"
@@ -6,7 +7,11 @@
 
 int Day5::Main() {
 	std::cout << "Day 5!" << std::endl;
-	std::vector<int> vector = ReadFile("../AdventOfCode/Day5/input.txt");
+	std::vector<std::string> inputAux = Util::ReadFile("../AdventOfCode/Day5/input.txt");
+	std::vector<int> vector;
+	for (std::string line : inputAux) {
+		vector.push_back(stoi(line));
+	}
 	//vector = { 0,3,0,1,-3 };
 
 	//Part 1
@@ -21,45 +26,16 @@ int Day5::Main() {
 	return 0;
 }
 
-std::vector<int> Day5::ReadFile(std::string fileName) {
-	std::vector<int> vector;
-	std::string line;
-	std::ifstream myfile(fileName);
-	if (myfile.is_open())
-	{
-		while (getline(myfile, line))
-		{
-			vector.push_back(std::stoi(line));
-		}
-		myfile.close();
-	} else {
-		std::cout << "Unable to open file\n";
-	}
-
-	return vector;
-}
-
-void Day5::PrintVector(std::vector<int> vector, int currentPos) {
-	for (unsigned i = 0; i < vector.size(); i++) {
-		if (i == currentPos) {
-			std::cout << '(' << vector[i] << ") ";
-		} else {
-			std::cout << ' ' << vector[i] << "  ";
-		}
-	}
-	std::cout << std::endl;
-}
-
 int Day5::EscapeMazePart1(std::vector<int> vector) {
 	int numberSteps = 0;
 	int currentPos = 0;
-	//PrintVector(vector, currentPos);
+	//Util::PrintVector(vector, currentPos);
 	while (currentPos >= 0 && currentPos < vector.size()) {
 		int cellToIncrement = currentPos;
 		int currentValue = vector[currentPos];
 		currentPos += currentValue;
 		vector[cellToIncrement] = vector[cellToIncrement] + 1;
-		//PrintVector(vector, currentPos);
+		//Util::PrintVector(vector, currentPos);
 		numberSteps++;
 	}
 	return numberSteps;
@@ -68,7 +44,7 @@ int Day5::EscapeMazePart1(std::vector<int> vector) {
 int Day5::EscapeMazePart2(std::vector<int> vector) {
 	int numberSteps = 0;
 	int currentPos = 0;
-	//PrintVector(vector, currentPos);
+	//Util::PrintVector(vector, currentPos);
 	while (currentPos >= 0 && currentPos < vector.size()) {
 		int cellToIncrement = currentPos;
 		int currentValue = vector[currentPos];
@@ -78,7 +54,7 @@ int Day5::EscapeMazePart2(std::vector<int> vector) {
 		} else {
 			vector[cellToIncrement] = vector[cellToIncrement] + 1;
 		}
-	//	PrintVector(vector, currentPos);
+		//Util::PrintVector(vector, currentPos);
 		numberSteps++;
 	}
 	return numberSteps;

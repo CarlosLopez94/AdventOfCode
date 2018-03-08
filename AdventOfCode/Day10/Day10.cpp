@@ -1,15 +1,16 @@
 #include "Day10.h"
+#include "../Util.h"
 #include "iostream"
 #include "fstream"
 
 int Day10::Main() {
 	const int LIST_LENGTH = 256;
 	std::cout << "Day 10 - Part 1" << std::endl;
-	std::vector<std::string> lines = ReadFile("../AdventOfCode/Day10/input.txt");
+	std::vector<std::string> lines = Util::ReadFile("../AdventOfCode/Day10/input.txt");
 	//Convert input to int vector
 	std::vector<int> input;
 	for (std::string line : lines) {
-		auto tokens = Split(line, ",");
+		auto tokens = Util::Split(line, ",");
 		for (auto token : tokens) {
 			input.push_back(stoi(token));
 		}
@@ -32,9 +33,9 @@ int Day10::Main() {
 		}
 	}
 	//Add the sequence at the end
-	std::vector<std::string> sequence = ReadFile("../AdventOfCode/Day10/sequence.txt");
+	std::vector<std::string> sequence = Util::ReadFile("../AdventOfCode/Day10/sequence.txt");
 	for (auto sequenceLine : sequence) {
-		auto seqTokens = Split(sequenceLine, ", ");
+		auto seqTokens = Util::Split(sequenceLine, ", ");
 		for (auto seqToken : seqTokens) {
 			inputAscii.push_back(stoi(seqToken));
 		}
@@ -46,38 +47,6 @@ int Day10::Main() {
 	std::string knotHash = ParseDenseHashToHexadecimalString(denseHash);
 	std::cout << "The knot hash is: " << knotHash << std::endl;
 	return 0;
-}
-
-std::vector<std::string> Day10::ReadFile(std::string fileName) {
-	std::vector<std::string> lines;
-	std::string line;
-	std::ifstream myfile(fileName);
-	if (myfile.is_open()) {
-		while (getline(myfile, line)) {
-			lines.push_back(line);
-
-		}
-		myfile.close();
-	} else {
-		std::cout << "Unable to open file\n";
-	}
-	return lines;
-}
-
-std::vector<std::string> Day10::Split(std::string stringToSplit, std::string separator) {
-	std::vector<std::string> tokens;
-	std::string stringAux = stringToSplit;
-	int indexNextToken = 0;
-	while (indexNextToken > -1 && indexNextToken < stringToSplit.size()) {
-		indexNextToken = stringAux.find(separator);
-		if (indexNextToken != -1) {
-			tokens.push_back(stringAux.substr(0, indexNextToken));
-			stringAux = stringAux.substr(indexNextToken + separator.size(), stringToSplit.size());//we have to jump the separator
-		} else {
-			tokens.push_back(stringAux);
-		}
-	}
-	return tokens;
 }
 
 void Day10::PrintVector(std::vector<int> vector, int currentPos, int posToReverse) {
@@ -148,30 +117,11 @@ std::vector<int> Day10::GetDenseHash(std::vector<int> sparseHash) {
 	return denseHash;
 }
 
-//Parse from Decimal to Hexadecimal. The hex value always has AT LEAST two digits
-std::string Day10::ParseDecimalToHex(int decimal) {
-	int const HEX = 16;
-	std::string hexNumber = "";
-	std::string hexAlphabet = "0123456789abcdef";
-	int decimalAux = decimal;
-	do {
-		int remainder = decimalAux % HEX;
-		hexNumber = hexAlphabet[remainder] + hexNumber;
-		decimalAux = decimalAux / HEX;
-	} while (decimalAux > 0);
-
-	//if the num only has one digits, add a left 0 
-	if (hexNumber.size() == 1) {
-		hexNumber = "0" + hexNumber;
-	}
-	return hexNumber;
-}
-
 std::string Day10::ParseDenseHashToHexadecimalString(std::vector<int> sparseHash) {
 	std::string knotHash;
 
 	for (int toHex : sparseHash) {
-		knotHash += ParseDecimalToHex(toHex);
+		knotHash += Util::ParseDecimalToHex(toHex);
 	}
 
 	return knotHash;
