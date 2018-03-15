@@ -13,6 +13,8 @@ namespace Util {
 
 	int ManhattanDistance(int origenX, int originY, int destinyX, int destinyY);
 	std::string ParseDecimalToHex(int decimal);
+	std::string HexToBinary(std::string hex);
+	int HexToDecimal(std::string hex);
 
 	//Prints
 	void PrintMatrix(std::vector<std::vector<int>> vector);

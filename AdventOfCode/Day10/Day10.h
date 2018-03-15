@@ -7,8 +7,6 @@ class Day10
 {
 public:
 	int Main();
-private:
-	void PrintVector(std::vector<int> vector, int currentPos, int postToReverse);
 
 	std::vector<int> InitCircularList(int length);
 	template<typename T>
@@ -18,5 +16,8 @@ private:
 
 	std::vector<int> GetDenseHash(std::vector<int> sparseHash);
 	std::string ParseDenseHashToHexadecimalString(std::vector<int> sparseHash);
+
+private:
+	void PrintVector(std::vector<int> vector, int currentPos, int postToReverse);
 };
 

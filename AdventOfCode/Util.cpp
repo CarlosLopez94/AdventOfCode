@@ -1,6 +1,8 @@
 #include "Util.h"
 #include "iostream"
 #include "fstream"
+#include "sstream"
+#include "bitset"
 
 namespace Util {
 
@@ -73,6 +75,28 @@ namespace Util {
 		return hexNumber;
 	}
 
+	//Parse from Hex to binary. 
+	std::string Util::HexToBinary(std::string hex) {
+		unsigned int intVaule;
+		std::stringstream ss;
+		ss << std::hex << hex;
+		ss >> intVaule;
+
+		std::bitset<4> b(intVaule);
+		//std::cout << b;
+		return b.to_string();
+	}
+
+	int Util::HexToDecimal(std::string hex)	{
+		std::istringstream iss(hex);
+		int decimalNumber;
+		iss >> std::hex >> decimalNumber;
+
+		return decimalNumber;
+	}
+
+
+	
 	//Prints
 	void Util::PrintMatrix(std::vector<std::vector<int>> vector) {
 		for (unsigned i = 0; i < vector.size(); i++) {
