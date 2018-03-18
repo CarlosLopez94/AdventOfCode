@@ -13,7 +13,7 @@ int Day8::Main() {
 
 	//Init registers with 0
 	for (std::string line : input) {
-		int index = line.find(" ");
+		size_t index = line.find(" ");
 		registers[line.substr(0, index)] = 0; //index-1?
 	}
 

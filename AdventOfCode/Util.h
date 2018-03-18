@@ -18,21 +18,80 @@ namespace Util {
 	std::string DecimalToBinary(int_fast64_t decimal);
 	std::string PaddingToLeft(std::string originalChain, std::string stringToAdd, int lengthToMatch);
 
-	void Swap(std::vector<char>& vector, int swapIndex1, int swapIndex2);
 
-	int IndexOfValue(std::vector<char> vector, char value);
+	//Util templates implementation
+	template<typename T>
+	void Swap(std::vector<T>& vector, int swapIndex1, int swapIndex2) {
+		T aux = vector[swapIndex1];
+		vector[swapIndex1] = vector[swapIndex2];
+		vector[swapIndex2] = aux;
+	}
 
+	template<typename T>
+	int IndexOfValue(std::vector<T> vector, char value) {
+		int i = 0;
+		bool found = false;
+		while (!found && i < vector.size()) {
+			if (vector[i] == value) {
+				found = true;
+			} else {
+				i++;
+			}
+		}
+		return found ? i : -1;
+	}
 
-	//Prints
-	void PrintMatrix(std::vector<std::vector<int>> vector);
+	template<typename T>
+	void PrintMatrix(std::vector<std::vector<T>> vector) {
+		for (unsigned i = 0; i < vector.size(); i++) {
+			for (unsigned j = 0; j < vector[0].size(); j++) {
+				std::cout << vector[i][j] << '\t';
+			}
+			std::cout << std::endl;
+		}
+	}
 
+	template<typename T>
+	void PrintVector(std::vector<T> vector) {
+		for (unsigned i = 0; i < vector.size(); i++) {
+			std::cout << vector[i] << "  ";
+		}
+		std::cout << std::endl;
+	}
 
-	void PrintVector(std::vector<int> vector);
-	void PrintVector(std::vector<char> vector);
-	void PrintVector(std::vector<int> vector, int currentPos);
-	void PrintQueue(std::queue<char> stack);
-	void PrintSet(std::set<int> setToPrint);
+	template<typename T>
+	void PrintVector(std::vector<T> vector, int currentPos) {
+		for (unsigned i = 0; i < vector.size(); i++) {
+			if (i == currentPos) {
+				std::cout << '(' << vector[i] << ") ";
+			} else {
+				std::cout << ' ' << vector[i] << "  ";
+			}
+		}
+		std::cout << std::endl;
+	}
 
+	template<typename T>
+	void PrintQueue(std::queue<T> queue) {
+		while (!queue.empty()) {
+			std::cout << queue.front();
+			queue.pop();
+		}
+		std::cout << std::endl;
+	}
 
-
+	template<typename T>
+	void PrintSet(std::set<T> setToPrint) {
+		auto it = setToPrint.begin();
+		while (it != setToPrint.end()) {
+			std::cout << *it;
+			it++;
+			//Check if we need ,
+			if (it != setToPrint.end()) {
+				std::cout << ", ";
+			} else {
+				std::cout << std::endl;
+			}
+		}
+	}
 }

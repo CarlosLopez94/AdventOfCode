@@ -22,12 +22,11 @@ int Day7::Main() {
 		newProgram.weight = stoi(lines[i].substr(lines[i].find("(") + 1, lines[i].find(")") - 1));
 
 		//Insert the program in the map
-		int separatorIndex = lines[i].find(subprogramsSeparator);
+		size_t separatorIndex = lines[i].find(subprogramsSeparator);
 		if (separatorIndex != -1) { //it has subprograms
 			std::string subprogramList = lines[i].substr(separatorIndex + subprogramsSeparator.size(), lines[i].size() - 1);
 			newProgram.subprograms = Util::Split(subprogramList, ", ");
 		}
-
 		programs[newProgram.name] = newProgram;
 	}
 

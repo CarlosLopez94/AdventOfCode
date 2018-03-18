@@ -15,7 +15,8 @@ int Day16::Main() {
 	Util::PrintVector(programList);
 	std::vector<std::string> danceMoves;
 	for (std::string danceList : input) {
-		for (std::string move : Util::Split(danceList, ",")) {
+		std::vector<std::string> tokens = Util::Split(danceList, ",");
+		for (std::string move : tokens) {
 			danceMoves.push_back(move);
 		}
 	}
@@ -55,7 +56,7 @@ int Day16::Main() {
 		ProcessDance(programList, danceMoves);
 	}
 
-	std::cout << "\nFinal order after 1000000000 times is: " << std::endl;
+	std::cout << "\nFinal order after one billion times (1000000000) is: " << std::endl;
 	Util::PrintVector(programList);
 	return 0;
 }

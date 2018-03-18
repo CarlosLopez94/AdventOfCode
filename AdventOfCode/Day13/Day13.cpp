@@ -27,7 +27,6 @@ int Day13::Main() {
 	int stepsDelay = GetStepsDelayToNotGetCaught(scannersInfo, scanners);
 	std::cout << "The fewest number of steps to delay to not get caught is: " << stepsDelay << std::endl;
 
-
 	return 0;
 }
 
