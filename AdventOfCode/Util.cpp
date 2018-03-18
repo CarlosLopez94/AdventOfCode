@@ -87,7 +87,7 @@ namespace Util {
 		return b.to_string();
 	}
 
-	int Util::HexToDecimal(std::string hex)	{
+	int Util::HexToDecimal(std::string hex) {
 		std::istringstream iss(hex);
 		int decimalNumber;
 		iss >> std::hex >> decimalNumber;
@@ -95,26 +95,44 @@ namespace Util {
 		return decimalNumber;
 	}
 
-	std::string DecimalToBinary(int_fast64_t decimal){
-		std::string binary="";
-		
-		while (decimal>= 2) {
-			binary = std::to_string(decimal%2) + binary;
+	std::string DecimalToBinary(int_fast64_t decimal) {
+		std::string binary = "";
+
+		while (decimal >= 2) {
+			binary = std::to_string(decimal % 2) + binary;
 			decimal = decimal / 2;
 		}
 		binary = std::to_string(decimal) + binary;
 		return binary;
 	}
 
-	std::string PaddingToLeft(std::string originalChain, std::string stringToAdd, int lengthToMatch){
+	std::string PaddingToLeft(std::string originalChain, std::string stringToAdd, int lengthToMatch) {
 		while (originalChain.size() < lengthToMatch) {
 			originalChain = stringToAdd + originalChain;
 		}
 		return originalChain;
 	}
 
+	void Swap(std::vector<char>& vector, int swapIndex1, int swapIndex2) {
+		char aux = vector[swapIndex1];
+		vector[swapIndex1] = vector[swapIndex2];
+		vector[swapIndex2] = aux;
+	}
 
-	
+	int IndexOfValue(std::vector<char> vector, char value) {
+		bool found = false;
+		int i = 0;
+		while (!found && i < vector.size()) {
+			if (vector[i] == value) {
+				found = true;
+			} else {
+				i++;
+			}
+		}
+		return found ? i : -1;
+	}
+
+
 	//Prints
 	void Util::PrintMatrix(std::vector<std::vector<int>> vector) {
 		for (unsigned i = 0; i < vector.size(); i++) {
@@ -126,6 +144,13 @@ namespace Util {
 	}
 
 	void Util::PrintVector(std::vector<int> vector) {
+		for (unsigned i = 0; i < vector.size(); i++) {
+			std::cout << vector[i] << "  ";
+		}
+		std::cout << std::endl;
+	}
+
+	void Util::PrintVector(std::vector<char> vector) {
 		for (unsigned i = 0; i < vector.size(); i++) {
 			std::cout << vector[i] << "  ";
 		}

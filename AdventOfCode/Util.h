@@ -18,10 +18,21 @@ namespace Util {
 	std::string DecimalToBinary(int_fast64_t decimal);
 	std::string PaddingToLeft(std::string originalChain, std::string stringToAdd, int lengthToMatch);
 
+	void Swap(std::vector<char>& vector, int swapIndex1, int swapIndex2);
+
+	int IndexOfValue(std::vector<char> vector, char value);
+
+
 	//Prints
 	void PrintMatrix(std::vector<std::vector<int>> vector);
+
+
 	void PrintVector(std::vector<int> vector);
+	void PrintVector(std::vector<char> vector);
 	void PrintVector(std::vector<int> vector, int currentPos);
 	void PrintQueue(std::queue<char> stack);
 	void PrintSet(std::set<int> setToPrint);
+
+
+
 }

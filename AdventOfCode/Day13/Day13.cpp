@@ -7,8 +7,6 @@
 #include "fstream"
 #include "map"
 
-class Day13::ScannerInfo;
-
 int Day13::Main() {
 	std::cout << "Day 13 - Part 1 " << std::endl;
 	std::vector<std::string> input = Util::ReadFile("../AdventOfCode/Day13/input.txt");
