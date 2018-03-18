@@ -15,6 +15,8 @@ namespace Util {
 	std::string ParseDecimalToHex(int decimal);
 	std::string HexToBinary(std::string hex);
 	int HexToDecimal(std::string hex);
+	std::string DecimalToBinary(int_fast64_t decimal);
+	std::string PaddingToLeft(std::string originalChain, std::string stringToAdd, int lengthToMatch);
 
 	//Prints
 	void PrintMatrix(std::vector<std::vector<int>> vector);

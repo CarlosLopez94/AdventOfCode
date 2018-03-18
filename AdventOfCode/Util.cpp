@@ -95,6 +95,24 @@ namespace Util {
 		return decimalNumber;
 	}
 
+	std::string DecimalToBinary(int_fast64_t decimal){
+		std::string binary="";
+		
+		while (decimal>= 2) {
+			binary = std::to_string(decimal%2) + binary;
+			decimal = decimal / 2;
+		}
+		binary = std::to_string(decimal) + binary;
+		return binary;
+	}
+
+	std::string PaddingToLeft(std::string originalChain, std::string stringToAdd, int lengthToMatch){
+		while (originalChain.size() < lengthToMatch) {
+			originalChain = stringToAdd + originalChain;
+		}
+		return originalChain;
+	}
+
 
 	
 	//Prints
