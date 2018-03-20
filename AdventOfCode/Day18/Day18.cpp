@@ -12,74 +12,66 @@ int Day18::Main() {
 	InitInstructionsAndRegisters(registers, instructions, input);
 
 	bool finish = false;
-	int currentindex = 0;
+	int_fast64_t currentindex = 0;
 	int sendCont = 0;
 	std::queue<int_fast64_t> frequency;
 	while (!finish) {
 		finish = ProcessInstruction(registers, instructions[currentindex], frequency, currentindex, sendCont, false);
 	}
 	std::cout << "The first Frequency is: " << frequency.back() << std::endl;
-	
+
 	//Part 2
 	std::cout << "Part 2" << std::endl;
-	
-	
-	
-	//bool deadLock = false;
-	//std::map<char, int_fast64_t> registers0;
-	//std::map<char, int_fast64_t> registers1;
-	//InitInstructionsAndRegisters(registers0, instructions, input);
-	//InitInstructionsAndRegisters(registers1, instructions, input);
-	//registers1['p'] = 1; // register 'p' has to start with value 1 in program 1
 
-	//bool program0Waiting = false;
-	//bool program1Waiting = false;
-	//std::queue<int_fast64_t> queue0;
-	//std::queue<int_fast64_t> queue1;
-	//int index0 = 0;
-	//int index1 = 0;
-	//int sendCont0 = 0;
-	//int sendCont1 = 0;
-	//int program1SendCont = 0;
-	//while (!deadLock) {
-	//	//Process intruction for program 0
-	//	if (ProcessInstruction(registers0, instructions[index0], queue1, index0, sendCont0, true)) {
-	//		//if we enter here then we have to recover the frequency
-	//		if (queue0.empty()) {
-	//			//if the queue is empty then we wait
-	//			program0Waiting = true;
-	//			index0--;//decrease index to remain in the same instruction next iteration
-	//		} else {
-	//			char regToStore = Util::Split(instructions[index0 - 1], " ")[1][0];
-	//			registers0[regToStore] = queue0.front();
-	//			queue0.pop();
-	//			program0Waiting = false;
-	//		}
-	//	}
+	std::map<char, int_fast64_t> registers0;
+	std::map<char, int_fast64_t> registers1;
+	InitInstructionsAndRegisters(registers0, instructions, input);
+	InitInstructionsAndRegisters(registers1, instructions, input);
+	registers1['p'] = 1; // register 'p' has to start with value 1 in program 1
 
-	//	//Process intruction for program 1
-	//	if (ProcessInstruction(registers1, instructions[index1], queue0, index1, sendCont1, true)) {
-	//		//if we enter here then we have to recover the frequency
-	//		if (queue1.empty()) {
-	//			//if the queue is empty then we wait
-	//			program1Waiting = true;
-	//			index1--;//decrease index to remain in the same instruction next iteration
-	//		} else {
-	//			char regToStore = Util::Split(instructions[index1 - 1], " ")[1][0];
-	//			registers1[regToStore] = queue1.front();
-	//			queue1.pop();
-	//			program1Waiting = false;
-	//		}
-	//	}
-	//	deadLock = program0Waiting && program1Waiting;
-	//	//std::cout << "index0: " << index0 << " |||| index1: " << index1 << std::endl;
-	//}
+	bool deadLock = false;
+	bool program0Waiting = false;
+	bool program1Waiting = false;
+	std::queue<int_fast64_t> queue0;
+	std::queue<int_fast64_t> queue1;
+	int_fast64_t index0 = 0;
+	int_fast64_t index1 = 0;
+	int sendcont0 = 0;
+	int sendcont1 = 0;
 
-	//std::cout << "Program 1 send " << sendCont1 << " frequencies" << std::endl;
+	while (!deadLock) {
+		//Program0
+		if (ProcessInstruction(registers0, instructions[index0], queue1, index0, sendcont0, true)) {
+			if (!queue0.empty()) {
+				char reg = Util::Split(instructions[index0 - 1], " ")[1][0];
+				registers0[reg] = queue0.front();
+				queue0.pop();
+				program0Waiting = false;
+			} else {
+				program0Waiting = true;
+				index0--;
+			}
+		}
+
+		//Program1
+		if (ProcessInstruction(registers1, instructions[index1], queue0, index1, sendcont1, true)) {
+			if (!queue1.empty()) {
+				char reg = Util::Split(instructions[index1 - 1], " ")[1][0];
+				registers1[reg] = queue1.front();
+				queue1.pop();
+				program1Waiting = false;
+			} else {
+				program1Waiting = true;
+				index1--;
+			}
+		}
+		deadLock = program0Waiting && program1Waiting;
+	}
+
+	std::cout << "Program 1 has sent: " << sendcont1 << " frequencies to program 0"<< std::endl;
 
 	return 0;
 }
-
 
 void Day18::InitInstructionsAndRegisters(std::map<char, int_fast64_t>& registers, std::map<int, std::string>& instructions, std::vector<std::string> input) {
 	int cont = 0;
@@ -93,7 +85,7 @@ void Day18::InitInstructionsAndRegisters(std::map<char, int_fast64_t>& registers
 	}
 }
 
-bool Day18::ProcessInstruction(std::map<char, int_fast64_t>& registers, std::string instruction, std::queue<int_fast64_t>& sendFrequency, int& currentIndex, int& sendCont, bool isPart2) {
+bool Day18::ProcessInstruction(std::map<char, int_fast64_t>& registers, std::string instruction, std::queue<int_fast64_t>& sendFrequency, int_fast64_t& currentIndex, int& sendCont, bool isPart2) {
 	std::vector<std::string> inst = Util::Split(instruction, " ");
 	std::string instType = inst[0];
 	char reg = inst[1][0];
@@ -123,8 +115,9 @@ bool Day18::ProcessInstruction(std::map<char, int_fast64_t>& registers, std::str
 		frequencyChecked = Rcv(registers, reg, isPart2); //if its part2 this return true, and the execution continues 
 		currentIndex++;
 	} else if (instType.compare("jgz") == 0) {
+		int_fast64_t conditionValue = GetValue(registers, inst[1]);
 		int_fast64_t offsetValue = GetValue(registers, inst[2]);
-		Jgz(registers, reg, offsetValue, currentIndex);
+		Jgz(registers, conditionValue, offsetValue, currentIndex);
 	}
 	return frequencyChecked;
 }
@@ -159,8 +152,8 @@ bool Day18::Rcv(std::map<char, int_fast64_t> registers, char reg, bool isPart2) 
 	return canReceived || isPart2;
 }
 
-void Day18::Jgz(std::map<char, int_fast64_t> registers, char regCondition, int offsetJump, int & currentIndex) {
-	if (registers[regCondition] > 0) {
+void Day18::Jgz(std::map<char, int_fast64_t> registers, int_fast64_t conditionValue, int_fast64_t offsetJump, int_fast64_t& currentIndex) {
+	if (conditionValue > 0) {
 		currentIndex = currentIndex + offsetJump;
 	} else {
 		currentIndex++; //if cant jump, then next instruction
