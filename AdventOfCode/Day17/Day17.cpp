@@ -51,7 +51,7 @@ Day17::Node* Day17::SpinlockIteration(Node* currentNode, int stepsNumber, int cu
 	return currentNode;
 }
 
-Day17::Node * Day17::MoveThroughCircularList(Node * origin, int stepsToMove) {
+Day17::Node* Day17::MoveThroughCircularList(Node * origin, int stepsToMove) {
 	if (stepsToMove == 0) {
 		return origin;
 	} else {
@@ -74,7 +74,7 @@ void Day17::AddValueAfter(Node * origin, int value, int& listSize) {
 	listSize++; //increase list size by 1
 }
 
-Day17::Node * Day17::FindNode(Node * origin, int valueToFind) {
+Day17::Node* Day17::FindNode(Node * origin, int valueToFind) {
 	while (origin->value != valueToFind) {
 		origin = origin->after;
 	}

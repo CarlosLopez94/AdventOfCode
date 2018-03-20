@@ -41,6 +41,18 @@ namespace Util {
 		return found ? i : -1;
 	}
 
+	template<typename T1, typename T2>
+	std::pair<T1, T2> AddToPair(std::pair<T1, T2> pair1, std::pair<T1, T2> pair2) {
+		std::pair<T1, T2> result = std::make_pair(pair1.first + pair2.first, pair1.second + pair2.second);
+		return result;
+	}
+
+	template<typename T1, typename T2>
+	void PrintPair(std::pair<T1, T2> pair) {
+		std::cout << '(' << pair.first << ',' << pair.second << ')';
+	}
+
+
 	template<typename T>
 	void PrintMatrix(std::vector<std::vector<T>> vector) {
 		for (unsigned i = 0; i < vector.size(); i++) {
