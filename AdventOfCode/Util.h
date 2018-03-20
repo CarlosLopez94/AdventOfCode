@@ -17,7 +17,7 @@ namespace Util {
 	int HexToDecimal(std::string hex);
 	std::string DecimalToBinary(int_fast64_t decimal);
 	std::string PaddingToLeft(std::string originalChain, std::string stringToAdd, int lengthToMatch);
-
+	bool IsAlphabetic(char ch);
 
 	//Util templates implementation
 	template<typename T>
