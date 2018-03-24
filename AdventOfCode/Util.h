@@ -46,12 +46,33 @@ namespace Util {
 		std::pair<T1, T2> result = std::make_pair(pair1.first + pair2.first, pair1.second + pair2.second);
 		return result;
 	}
+	template<typename T>
+	void RotateMatrix(std::vector<std::vector<T>>& pattern) {
+		std::vector<std::vector<T>> rotated(pattern.size(), std::vector<T>(pattern.size(), ' '));
+
+		for (int i = 0; i < rotated.size(); i++) {
+			for (int j = 0; j < rotated.size(); j++) {
+				rotated[rotated.size() - 1 - j][i] = pattern[i][j];
+			}
+		}
+		pattern = rotated;
+	}
+
+	template<typename T>
+	void FlipMatrix(std::vector<std::vector<T>>& pattern) {
+		for (int i = 0; i < pattern.size(); i++) {
+			for (int j = 0; j < pattern.size() / 2; j++) {
+				auto temp = pattern[i][j];
+				pattern[i][j] = pattern[i][pattern.size() - 1 - j];
+				pattern[i][pattern.size() - 1 - j] = temp;
+			}
+		}
+	}
 
 	template<typename T1, typename T2>
 	void PrintPair(std::pair<T1, T2> pair) {
 		std::cout << '(' << pair.first << ',' << pair.second << ')';
 	}
-
 
 	template<typename T>
 	void PrintMatrix(std::vector<std::vector<T>> vector) {

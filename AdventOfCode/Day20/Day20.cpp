@@ -135,7 +135,6 @@ void Day20::DestroyOnCollision(std::vector<Particle*>& particles) {
 				particles.erase(std::remove(particles.begin(), particles.end(), parCollide), particles.end());
 			}
 		}
-
 		it++;
 	}
 

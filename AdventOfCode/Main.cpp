@@ -18,6 +18,7 @@
 #include "Day18\Day18.h"
 #include "Day19\Day19.h"
 #include "Day20\Day20.h"
+#include "Day21\Day21.h"
 #include "iostream"
 #include "Util.h"
 
@@ -26,7 +27,7 @@ int main() {
 	//int year = 2017;
 	//std::cout << "Select day: " << std::endl;
 
-	int day = 20;
+	int day = 21;
 	int resultErrorNumber;
 	switch (day) {
 	case 1:
@@ -108,6 +109,10 @@ int main() {
 	case 20:
 		Day20 day20;
 		resultErrorNumber = day20.Main();
+		break;
+	case 21:
+		Day21 day21;
+		resultErrorNumber = day21.Main();
 		break;
 	default:
 		resultErrorNumber = 0;
