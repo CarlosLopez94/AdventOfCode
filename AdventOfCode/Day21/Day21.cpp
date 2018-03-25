@@ -1,7 +1,6 @@
 #include "Day21.h"
 #include "../Util.h"
 #include "iostream"
-#include "chrono"
 
 int Day21::Main() {
 	std::cout << "Day 21 - Part 1" << std::endl;
@@ -16,17 +15,16 @@ int Day21::Main() {
 	InitRules(rules, rulesInput);
 	InitPattern(pattern, patternInput);
 
-	std::map<std::vector<std::vector<char>>, int> subPatternsPixels;
-	int pixelsOn = GetOnPixels(rules, pattern, subPatternsPixels, 5);
-	std::cout << "Numbers of On pixels after 5 iterations: " << pixelsOn << std::endl;
+	std::map<std::pair<int, std::vector<std::vector<char>>>, int_fast64_t> subPatternsPixels;
+	const int ITERATIONS_PART_1 = 5;
+	int_fast64_t pixelsOn = GetOnPixels(rules, pattern, subPatternsPixels, ITERATIONS_PART_1);
+	std::cout << "Numbers of 'On' (#) pixels after " << ITERATIONS_PART_1 << " iterations: " << pixelsOn << std::endl;
 
-	auto start_time = std::chrono::high_resolution_clock::now();
+	//Part 2
+	std::cout << "Part 2" << std::endl;
+	const int ITERATIONS_PART_2 = 18;
 	pixelsOn = GetOnPixels(rules, pattern, subPatternsPixels, 18);
-
-	auto end_time = std::chrono::high_resolution_clock::now();
-	auto time = end_time - start_time;
-	std::cout << "fib(100) took " << std::chrono::duration_cast<std::chrono::seconds>(time).count()/60<<":"<< std::chrono::duration_cast<std::chrono::seconds>(time).count()%60 << " to run.\n";
-	std::cout << "Numbers of On pixels after 18 iterations: " << pixelsOn << std::endl;
+	std::cout << "Numbers of 'On' (#) pixels after " << ITERATIONS_PART_2 << " iterations: " << pixelsOn << std::endl;
 	return 0;
 }
 
@@ -50,11 +48,11 @@ void Day21::InitPattern(std::vector<std::vector<char>>& pattern, std::vector<std
 	}
 }
 
-int Day21::GetOnPixels(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::vector<std::vector<char>>, int>& subPatternsPixels, int numberIterations) {
+int Day21::GetOnPixels(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::pair<int, std::vector<std::vector<char>>>, int_fast64_t>& subPatternsPixels, int numberIterations) {
 	return Increase3X3(rules, pattern, subPatternsPixels, numberIterations, 0);
 }
 
-int Day21::Increase3X3(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::vector<std::vector<char>>, int>& subPatternsPixels, int numberIterations, int tabs) {
+int Day21::Increase3X3(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::pair<int, std::vector<std::vector<char>>>, int_fast64_t>& subPatternsPixels, int numberIterations, int tabs) {
 	if (numberIterations > 0) {
 		auto transformed = GetTransformed(rules, pattern);// LineToMatrix(ruleString);// GetTransformed(rules, pattern);//
 
@@ -65,7 +63,7 @@ int Day21::Increase3X3(std::map<std::string, std::string>& rules, std::vector<st
 	}
 }
 
-int Day21::Increase4x4(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::vector<std::vector<char>>, int>& subPatternsPixels, int numberIterations, int tabs) {
+int Day21::Increase4x4(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::pair<int, std::vector<std::vector<char>>>, int_fast64_t>& subPatternsPixels, int numberIterations, int tabs) {
 	if (numberIterations > 0) {
 		std::vector<std::vector<char>> nextPattern(6, std::vector<char>(6));
 
@@ -81,20 +79,22 @@ int Day21::Increase4x4(std::map<std::string, std::string>& rules, std::vector<st
 	}
 }
 
-int Day21::Increase6x6(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::vector<std::vector<char>>, int>& subPatternsPixels, int numberIterations, int tabs) {
+int Day21::Increase6x6(std::map<std::string, std::string>& rules, std::vector<std::vector<char>> pattern, std::map<std::pair<int, std::vector<std::vector<char>>>, int_fast64_t>& subPatternsPixels, int numberIterations, int tabs) {
 	if (numberIterations > 0) {
-		int pixelsTotal = 0;
+		int_fast64_t pixelsTotal = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
+				//This 6x6 will increase into a 9x9, and we can do submatrix of 3x3... We calculate the pixels of each of this 3x3 by calling Increase3X3(...)
 				auto transformed = GetTransformed(rules, GetSubmatrix(pattern, 2, 2 * i, 2 * j));
-				int pixels;
-				if (subPatternsPixels.find(transformed) != subPatternsPixels.end()) {
+				int_fast64_t pixels;
+				std::pair<int, std::vector<std::vector<char>>> transformedIteration(numberIterations, transformed);
+				if (subPatternsPixels.find(transformedIteration) != subPatternsPixels.end()) {
 					//if this pattern has been calculated before, copy the result
-					pixels = subPatternsPixels[transformed];
+					pixels = subPatternsPixels[transformedIteration];
 				} else {
 					//calculate this pattern and save result
 					pixels = Increase3X3(rules, transformed, subPatternsPixels, numberIterations - 1, tabs + 1);
-					//subPatternsPixels[transformed] = pixels;
+					subPatternsPixels[transformedIteration] = pixels;
 				}
 				pixelsTotal += pixels;
 			}
@@ -150,8 +150,8 @@ void Day21::MergeMatrix(std::vector<std::vector<char>>& nextPattern, std::vector
 	}
 }
 
-int Day21::CountPixelsOn(std::vector<std::vector<char>> pattern) {
-	int pixelsOn = 0;
+int_fast64_t Day21::CountPixelsOn(std::vector<std::vector<char>> pattern) {
+	int_fast64_t pixelsOn = 0;
 	for (int i = 0; i < pattern.size(); i++) {
 		for (int j = 0; j < pattern.size(); j++) {
 			if (pattern[i][j] == '#') {
