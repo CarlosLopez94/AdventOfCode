@@ -82,6 +82,9 @@
     <ClCompile Include="Day22\Day22.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Day23\Day23.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Day1\Day1.h">
@@ -154,6 +157,9 @@
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="Day22\Day22.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Day23\Day23.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
   </ItemGroup>
