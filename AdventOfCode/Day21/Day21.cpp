@@ -23,7 +23,7 @@ int Day21::Main() {
 	//Part 2
 	std::cout << "Part 2" << std::endl;
 	const int ITERATIONS_PART_2 = 18;
-	pixelsOn = GetOnPixels(rules, pattern, subPatternsPixels, 18);
+	pixelsOn = GetOnPixels(rules, pattern, subPatternsPixels, ITERATIONS_PART_2);
 	std::cout << "Numbers of 'On' (#) pixels after " << ITERATIONS_PART_2 << " iterations: " << pixelsOn << std::endl;
 	return 0;
 }
