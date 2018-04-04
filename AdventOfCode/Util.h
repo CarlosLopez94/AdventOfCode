@@ -28,7 +28,7 @@ namespace Util {
 	}
 
 	template<typename T>
-	int IndexOfValue(std::vector<T> vector, char value) {
+	int IndexOfValue(std::vector<T> vector, T value) {
 		int i = 0;
 		bool found = false;
 		while (!found && i < vector.size()) {
